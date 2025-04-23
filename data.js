@@ -2,7 +2,7 @@ var APP_DATA = {
   "scenes": [
     {
       "id": "0-shot-panoramic-composition-living-room-1",
-      "name": "shot-panoramic-composition-living-room (1)",
+      "name": "ห้องนั่งเล่น 1",
       "levels": [
         {
           "tileSize": 256,
@@ -46,7 +46,7 @@ var APP_DATA = {
     },
     {
       "id": "1-shot-panoramic-composition-bedroom",
-      "name": "shot-panoramic-composition-bedroom",
+      "name": "ห้องนอน",
       "levels": [
         {
           "tileSize": 256,
@@ -77,7 +77,7 @@ var APP_DATA = {
     },
     {
       "id": "2-shot-panoramic-composition-living-room",
-      "name": "shot-panoramic-composition-living-room",
+      "name": "ห้องนั่งเล่น 2",
       "levels": [
         {
           "tileSize": 256,
