@@ -189,6 +189,7 @@
     startAutorotate();
     updateSceneName(scene);
     updateSceneList(scene);
+    syncMiniMap(scene); // เพิ่มมา: อัปเดต mini map ให้ตรงกับ scene ปัจจุบัน
   }
 
   function updateSceneName(scene) {
@@ -385,6 +386,34 @@
     }
     return null;
   }
+  
+// เพิ่มมา: ฟังก์ชัน sync mini map
+function syncMiniMap(scene) {
+  var currentSceneId = scene.data.id;
+
+  // ลบ active ออกจากทุกตำแหน่ง
+  var miniMapRooms = document.querySelectorAll('.minimap-room');
+  miniMapRooms.forEach(function(room) {
+    room.classList.remove('active');
+  });
+
+  // เพิ่ม active ให้ห้องที่ตรงกับ scene ปัจจุบัน
+  var activeRoom = document.querySelector('.minimap-room[data-id="' + currentSceneId + '"]');
+  if (activeRoom) {
+    activeRoom.classList.add('active');
+  }
+}
+
+// เพิ่มมา: Event click บน mini map เพื่อเปลี่ยน scene
+document.querySelectorAll('.minimap-room').forEach(function(room) {
+  room.addEventListener('click', function() {
+    var sceneId = room.getAttribute('data-id');
+    var targetScene = findSceneById(sceneId);
+    if (targetScene) {
+      switchScene(targetScene);
+    }
+  });
+});
 
   // Display the initial scene.
   switchScene(scenes[0]);
