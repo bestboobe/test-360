@@ -828,3 +828,21 @@ body.view-control-buttons .viewControlButton {
 .viewControlButton-6 {
   margin-left: 105px;
 }
+
+/*เพิ่มโค้ด*/
+#minimap {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 200px;
+  height: auto;
+  z-index: 1000;
+}
+
+.dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: limegreen;
+  border-radius: 50%;
+}
