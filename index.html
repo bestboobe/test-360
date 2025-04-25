@@ -1,38 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Project Title</title>
-<meta charset="utf-8">
-<meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
-<style> @-ms-viewport { width: device-width; } </style>
-<link rel="stylesheet" href="vendor/reset.min.css">
-<link rel="stylesheet" href="style.css">
+  <title>Project Title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui" />
+  <style> @-ms-viewport { width: device-width; } </style>
+  <link rel="stylesheet" href="vendor/reset.min.css">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Mini Map Overlay */
+    #mini-map {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 200px;
+      height: auto;
+      border: 1px solid #ccc;
+      background-color: white;
+      z-index: 9999;
+    }
+
+    #mini-map img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #position-indicator {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: limegreen;
+      border-radius: 50%;
+      border: 2px solid white;
+      transform: translate(-50%, -50%);
+    }
+
+    #mini-map-wrapper {
+      position: relative;
+    }
+  </style>
 </head>
+
 <body class="multiple-scenes ">
 
 <div id="pano"></div>
 
 <div id="sceneList">
   <ul class="scenes">
-    
       <a href="javascript:void(0)" class="scene" data-id="0-shot-panoramic-composition-living-room-1">
-        <li class="text">ห้องนั่งเล่น 1</li>
+        <li class="text">shot-panoramic-composition-living-room (1)</li>
       </a>
-    
       <a href="javascript:void(0)" class="scene" data-id="1-shot-panoramic-composition-bedroom">
-        <li class="text">ห้องนอน</li>
+        <li class="text">shot-panoramic-composition-bedroom</li>
       </a>
-    
       <a href="javascript:void(0)" class="scene" data-id="2-shot-panoramic-composition-living-room">
-        <li class="text">ห้องนั่งเล่น 2</li>
+        <li class="text">shot-panoramic-composition-living-room</li>
       </a>
-    
   </ul>
-</div>
-<!--เพิ่มโค้ดเอง 33-36-->
-<div id="minimap"> 
-  <img src="floorplan.png" alt="Floor Plan">
-  <div id="viewerDot" class="dot" style="top: 120px; left: 80px;"></div>
 </div>
 
 <div id="titleBar">
@@ -73,12 +99,42 @@
   <img class="icon" src="img/minus.png">
 </a>
 
-<script src="vendor/screenfull.min.js" ></script>
-<script src="vendor/bowser.min.js" ></script>
-<script src="vendor/marzipano.js" ></script>
+<!-- Mini Map Overlay -->
+<div id="mini-map">
+  <div id="mini-map-wrapper">
+    <img src="floorplan.png" alt="Mini Map">
+    <div id="position-indicator" style="left: 50%; top: 50%;"></div>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="vendor/screenfull.min.js"></script>
+<script src="vendor/bowser.min.js"></script>
+<script src="vendor/marzipano.js"></script>
 
 <script src="data.js"></script>
 <script src="index.js"></script>
+
+<!-- Mapping script (ใส่ logic mapping ใน index.js ต่อไป) -->
+<script>
+  function updateMiniMap(yaw, pitch) {
+    // ปรับ mapping ตาม floorplan จริง
+    // ในที่นี้สมมุติแผนที่กว้าง 200px, สูง 300px
+    const mapWidth = 200;
+    const mapHeight = 300;
+
+    const indicator = document.getElementById("position-indicator");
+
+    // Mapping yaw (-π ถึง π) เป็น X (0 - mapWidth)
+    const x = ((yaw + Math.PI) / (2 * Math.PI)) * mapWidth;
+
+    // Mapping pitch (-π/2 ถึง π/2) เป็น Y (0 - mapHeight)
+    const y = ((pitch + Math.PI/2) / Math.PI) * mapHeight;
+
+    indicator.style.left = x + "px";
+    indicator.style.top = y + "px";
+  }
+</script>
 
 </body>
 </html>
